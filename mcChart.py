@@ -1,4 +1,5 @@
 import re
+import os
 numberRegEx = re.compile(r'\d{2}/\d{2}/\d{4}')
 
 def isValid():
@@ -73,12 +74,13 @@ while isGoing:
 			print("You submitted your work after one month")
 		else:
 			print(f"You submitted your work after {submissionMonth - deadlineMonth} months")
-		if isValid():
-			print("You will get full mark")
-			isFinished = True
-		else:
-			print("Mark = 0")
-			isFinished = True
+		if not isFinished:
+			if isValid():
+				print("You will get full mark")
+				isFinished = True
+			else:
+				print("Mark = 0")
+				isFinished = True
 
 	if submissionDay - deadlineDay < 0 and submissionMonth - deadlineMonth == 0 and isFinished == False:
 		print("You will get full mark")
@@ -91,7 +93,7 @@ while isGoing:
 		else:
 			print("Minus 10 mark from overall mark, but not below 40")
 			isFinished = True
-	if submissionDay - deadlineDay > 1 and isFinished == False:
+	if submissionDay - deadlineDay > 1 and submissionMonth - deadlineMonth == 0 and isFinished == False:
 		print(f"You submitted your work within {submissionDay - deadlineDay} days")
 		if isValid():
 			print("You will get full mark")
